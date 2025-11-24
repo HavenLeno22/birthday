@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Heartfelt Message for Dharsini</title>
+    <style>
+        /* --- General Styling and 3D Setup --- */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f7f7f7;
+            font-family: 'Inter', sans-serif;
+            perspective: 1000px; /* Crucial for 3D effect */
+            overflow: hidden;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 380px; 
+            height: 600px; 
+        }
+
+        /* 3D Flip Container */
+        .card-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1.5s cubic-bezier(0.4, 0.2, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .card-container:hover {
+            transform: rotateY(180deg); /* The 3D flip on hover */
+        }
+
+        /* Card Faces */
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden; /* Hide the back when facing away */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-radius: 25px; 
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            padding: 25px;
+            box-sizing: border-box;
+            overflow: hidden; 
+        }
+
+        /* Heartmelting Pink and Gold Theme */
+        .front-face {
+            background: linear-gradient(135deg, #f093fb, #f5576c); /* Soft Pink/Rose Gold */
+            color: white;
+            z-index: 2;
+            border: 5px solid #ffcc00; /* Gold border */
+            justify-content: center;
+        }
+
+        .back-face {
+            background: linear-gradient(-135deg, #a1c4fd, #c2e9fb); /* Soft Blue/Lavender */
+            color: #333;
+            transform: rotateY(180deg);
+            border: 5px solid #6c7bcc;
+            justify-content: flex-start; 
+            padding-top: 25px; 
+        }
+        
+        /* Back Face Structure */
+        .back-face h2 {
+            font-size: 2.5em;
+            color: #e91e63; /* Deep Rose */
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-weight: 900;
+            width: 100%;
+        }
+        
+        /* Adjusted margin here */
+        .back-face > p:first-of-type {
+            font-size: 1.1em;
+            margin-top: 5px;
+            margin-bottom: 10px; /* Reduced margin */
+        }
+        
+        /* Surprise Button Grid */
+        .surprise-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Single column layout */
+            gap: 10px; /* Reduced gap */
+            width: 100%;
+            margin-bottom: 10px; /* Reduced margin */
+        }
+
+        .surprise-btn {
+            padding: 12px 10px;
+            font-size: 0.95em;
+            font-weight: 700;
+            border: 2px solid #6c7bcc;
+            border-radius: 15px;
+            background-color: #ffffff; 
+            color: #6c7bcc;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .surprise-btn:hover {
+            background-color: #6c7bcc;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Display Area for Surprise Messages */
+        #surpriseDisplay {
+            width: 100%;
+            min-height: 70px; /* Slightly reduced height */
+            background-color: rgba(255, 255, 255, 0.6);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 10px; /* Reduced margin */
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+            color: #333;
+            font-style: italic;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.5s;
+        }
+        
+        /* Final Dedication Message */
+        .dedication-message {
+            font-style: italic;
+            color: #e91e63; /* Use deep rose color for impact */
+            font-weight: 600;
+            padding-top: 10px;
+            border-top: 1px dashed #e91e6350;
+            width: 100%;
+            margin-top: 10px; /* Reduced margin */
+        }
+        
+        /* --- Shy Button Game Styling --- */
+        .shy-game-section {
+            margin-top: 10px; /* Reduced margin to pull up */
+            padding: 15px 15px 5px 15px; 
+            border-radius: 15px;
+            background-color: rgba(255, 255, 255, 0.7); 
+            width: 100%;
+        }
+
+        .shy-question {
+            font-size: 1.1em;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .shy-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .shy-btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .yes-btn {
+            background-color: #ffcc00; /* Gold */
+            color: #333;
+        }
+
+        .yes-btn:hover {
+            background-color: #f5b700;
+        }
+
+        .no-btn {
+            background-color: #f5576c; /* Rose */
+            color: white;
+        }
+
+        .no-btn:hover {
+            background-color: #e91e63;
+        }
+
+        .shy-message {
+            margin-top: 15px;
+            min-height: 40px;
+            color: #e91e63;
+            font-size: 1.3em;
+            font-weight: 800;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .shy-message.visible {
+            opacity: 1;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="card-container" id="birthdayCard">
+            <!-- Front Face (The Heartfelt Invitation) --><div class="card-face front-face">
+                <p style="font-size: 1.2em; font-weight: 300;">A little surprise for the one and only...</p>
+                <h1 style="font-size: 3em;">💖 DHARSINI 💖</h1>
+                <p class="heartfelt-intro">Tap or click to reveal your special birthday treasures!</p>
+                <p style="font-size: 0.9em; margin-top: auto; font-weight: 300;">(Flip for fun surprises!)</p>
+            </div>
+
+            <!-- Back Face (The Actual Birthday Message & Activities) --><div class="card-face back-face">
+                <h2>✨ HAPPY BIRTHDAY GOO! ✨</h2>
+                <p>To the most wonderful friend, enjoy these special birthday surprises we've tucked away just for you!</p>
+                
+                <!-- Surprise Button Grid --><div class="surprise-grid">
+                    <button class="surprise-btn" data-surprise="memory">🌟 A Golden Memory</button>
+                    <button class="surprise-btn" data-surprise="future">🚀 A Future Dream</button>
+                    <button class="surprise-btn" data-surprise="song">🎶 A Song For You</button>
+                </div>
+
+                <!-- Surprise Display Area --><div id="surpriseDisplay">Click any of the buttons above to reveal your surprise!</div>
+                
+                <!-- NEW: Shy Button Game Section --><div class="shy-game-section">
+                    <p class="shy-question" id="shyQuestion">But first, a very important question:</p>
+                    <div class="shy-buttons" id="shyButtons">
+                        <button class="shy-btn yes-btn">Yes, I love it! 😊</button>
+                        <button class="shy-btn no-btn">No, I don't 😟</button>
+                    </div>
+                    <div id="shyMessage" class="shy-message"></div>
+                </div>
+
+                <!-- Final Dedication Message --><p class="dedication-message">
+                    Always remember: You are loved more than words can say. Thank you for being you! ❤️
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data for the new surprise buttons (Cleaned up placeholder text)
+        const surprises = {
+            memory: "Remember that time we [spent all night laughing over terrible jokes]? That moment is a bookmark in my favorite memories of you!",
+            future: "My biggest wish for you is that you chase your biggest, craziest dreams with the same incredible energy you have now.just kidding🤣 go and do some resin and cakes",
+            song: "Every time I hear [Tilasmi Bahein], I think of you and all the amazing times we've shared. Sending you all the good vibes today!",
+        };
+
+        const surpriseDisplay = document.getElementById('surpriseDisplay');
+        const surpriseButtons = document.querySelectorAll('.surprise-btn');
+
+        // Event listeners for the surprise buttons
+        surpriseButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const key = button.getAttribute('data-surprise');
+                surpriseDisplay.textContent = surprises[key];
+                surpriseDisplay.style.backgroundColor = 'rgba(255, 240, 200, 0.8)'; // Light gold background on reveal
+            });
+        });
+
+        // --- Shy Button Game Logic ---
+        const shyQuestion = document.getElementById('shyQuestion');
+        const yesBtn = document.querySelector('.yes-btn');
+        const noBtn = document.querySelector('.no-btn');
+        const shyMessage = document.getElementById('shyMessage');
+        
+        // Counter for the "No" clicks to cycle through persuasive messages
+        let noClickCount = 0;
+
+        // Function to handle the "No" click (ask again and again)
+        function handleNoClick() {
+            noClickCount++;
+            shyMessage.classList.remove('visible'); // Hide previous message instantly
+
+            if (noClickCount === 1) {
+                shyQuestion.textContent = "Are you sure? I spent ages making them sparkle! ✨";
+                shyMessage.innerHTML = '🧐 *Is your heart really saying no?*';
+            } else if (noClickCount === 2) {
+                shyQuestion.textContent = "Think again! They're filled with friendship magic! 🪄";
+                shyMessage.innerHTML = '😩 *Come on, just one little YES?*';
+            } else {
+                // Reset/Pleading state
+                shyQuestion.textContent = "Aww, please? I tried really hard! Do you like the buttons now?";
+                shyMessage.innerHTML = '😔 *Please give it another chance?* 🥺';
+                noClickCount = 0; // Reset counter after the cycle
+            }
+
+            shyMessage.classList.add('visible');
+            
+            // Remove the visible class after a short delay
+            setTimeout(() => {
+                 shyMessage.classList.remove('visible');
+            }, 2000);
+        }
+
+        // Function to handle the "Yes" click (shy reaction)
+        function handleYesClick() {
+            shyQuestion.textContent = "Aww, thank you! That means a lot! 😳";
+            
+            // The shy pic/message (using emojis for a blushing look)
+            shyMessage.innerHTML = '(*Blushing furiously*) <span style="font-size: 2em;">💖😊🫣</span>';
+            shyMessage.classList.add('visible');
+
+            // Disable buttons to lock the interaction
+            yesBtn.disabled = true;
+            noBtn.disabled = true;
+            yesBtn.style.opacity = '0.5';
+            noBtn.style.opacity = '0.5';
+            
+            // Also disable the surprise buttons (optional, but makes the 'Yes' click the final action)
+            surpriseButtons.forEach(button => button.disabled = true);
+        }
+
+        yesBtn.addEventListener('click', handleYesClick);
+        noBtn.addEventListener('click', handleNoClick);
+
+        // --- Mobile Friendly Flip (Click/Tap) ---
+        const card = document.getElementById('birthdayCard');
+        card.addEventListener('click', () => {
+             // Toggle the 3D flip transform class for better mobile interaction
+            card.classList.toggle('flipped');
+        });
+        // Add a class that can be toggled via JS
+        const styleSheet = document.createElement("style");
+        styleSheet.type = "text/css";
+        styleSheet.innerText = ".card-container.flipped { transform: rotateY(180deg) !important; }";
+        document.head.appendChild(styleSheet);
+        
+    </script>
+
+</body>
+</html>
